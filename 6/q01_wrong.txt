@@ -1,0 +1,38 @@
+#include <stdio.h>
+int main(void)
+{
+	char c;
+	FILE *fp;
+	int freq[52] = {};
+	int index;
+
+	fp = fopen("g:\\ProjC\\data_eng.txt", "r");
+	if( fp == NULL )
+	{
+		printf("<error> 파일 오픈 실패 \n");
+		return 0;
+	}
+
+	while( (c=fgetc(fp)) != EOF )
+	{
+		if( c >= 'a' && c <= 'z' )
+		{
+			freq[ c ]++;
+		}
+		else if( c >= 'A' && c <= 'Z' )
+		{
+			freq[ 26 + c ]++;
+		}
+	}
+
+	printf("> 각 글자별 빈도수 \n");
+	for( index=0; index<('z'-'a'+1); index++)
+	{
+		printf(" %c :  %d \n", 'a'+index, freq[index] );
+	}
+	for( index=0; index<('Z'-'A'+1); index++)
+	{
+		printf(" %c :  %d \n", 'A'+index, freq[26+index] );
+	}
+	return 0;
+}
